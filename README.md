@@ -16,4 +16,4 @@ Grover’s search is proven optimal, but with less effective interference patter
 
 To me, this reminds me that all software is a human expression
 
-Similar to classical computing, there is a lot I don't understand about quantum computing. 
+Similar to classical computing, there is still a lot I don't understand about quantum computing. 
