@@ -15,7 +15,7 @@ namespace quantum_viz {
 
     namespace sdlm {
         struct Win { SDL_Window* win=nullptr; SDL_Surface* surf=nullptr; int W=0,H=0; };
-        struct Manager { bool inited=false; Win grid, arrows, bars, circuit; };
+        struct Manager { bool inited=false; Win grid, arrows, bars, circuit, bloch; };
         inline Manager& M(){ static Manager m; return m; }
 
         inline bool ensure_sdl() {
@@ -350,6 +350,19 @@ namespace quantum_viz {
         return true;
     }
 
+    struct BlochSpheresConfig {
+        int sphere_size = 180;
+        int margin = 20;
+        int cols = 4;
+        int min_frame_ms = 16;
+        bool draw_axes = true;
+        bool draw_state_vector = true;
+        bool draw_probabilities = true;
+    };
+
+    bool show_bloch_spheres(const std::vector<Complex>& psi, int n,
+                            const BlochSpheresConfig& cfg, const char* title);
+
     enum class Step { None, Prev, Next, First, Last, Quit };
     inline Step wait_for_step(){
         SDL_Event ev;
@@ -469,6 +482,7 @@ namespace quantum_viz {
         sdlm::destroy_window(sdlm::M().arrows);
         sdlm::destroy_window(sdlm::M().bars);
         sdlm::destroy_window(sdlm::M().circuit);
+        sdlm::destroy_window(sdlm::M().bloch);
         if (sdlm::M().inited) SDL_Quit();
         sdlm::M().inited = false;
     }

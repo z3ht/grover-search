@@ -29,11 +29,11 @@ static int infer_n(const std::vector<qcommon::Complex>& psi) {
 }
 
 int main() {
-    const int viz_qubits = 10;   // visualization grid size (2^n bins)
+    const int viz_qubits = 8;   // visualization grid size (2^n bins)
     const int target = 21;
 
     qcommon::QRegister reg(viz_qubits);
-    std::unique_ptr<IAlgorithm> algo = std::make_unique<ShorAlgorithm>(target);
+    std::unique_ptr<IAlgorithm> algo = std::make_unique<GroverAlgorithm>(target);
 
     auto frames = algo->run_and_make_frames(std::move(reg));
 
@@ -98,6 +98,12 @@ int main() {
         auto pcfg_copy = pcfg;
         pcfg_copy.marked_index = f.highlight_index;
         quantum_viz::show_prob_bars(f.psi, n_frame, pcfg_copy, f.title_bars.c_str());
+
+        quantum_viz::BlochSpheresConfig bcfg;
+        bcfg.sphere_size = 160;
+        bcfg.cols = std::min(n_frame, 5);  // max 5 columns
+        bcfg.min_frame_ms = 16;
+        quantum_viz::show_bloch_spheres(f.psi, n_frame, bcfg, "Qubit Bloch Spheres");
 
         if (f.show_circuit)
             quantum_viz::show_oracle_step(n_frame, 0, to_viz_phase(f.phase), ocfg,
