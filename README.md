@@ -15,3 +15,5 @@ From this, it’s still possible to write both good and bad code.
 Grover’s search is proven optimal, but with less effective interference patterns, slower solutions are also possible.
 
 To me, this reminds me that all software is a human expression
+
+Similar to classical computing, there is a lot I don't understand about quantum computing. 
