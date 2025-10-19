@@ -8,7 +8,7 @@ I found this project interesting because it goes against my understanding of the
 
 While implementing, I developed an appreciation for the rules of quantum computing as a kind of poetry:
 - Reversibility: Information cannot be discarded. I.e. `true AND false` is an illegal operation because it is impossible to infer from the resulting output `false` the original input.
-- Phase Interference: The probability of a correct answer is amplified by arranging operations so that phases reinforce and cancel each other until favoring the resulting value
+- Phase Interference: The probability of a correct answer is amplified by arranging operations so that phases reinforce and cancel each other until favoring a resulting value
 
 From this, it’s still possible to write both good and bad code.
 
