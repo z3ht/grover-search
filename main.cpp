@@ -156,7 +156,7 @@ static void add_oracle_circuit_frames(std::vector<Frame>& frames,
 int main() {
     const int n = 8;
     const int N = 1 << n;
-    const int target = 5;
+    const int target = 135;
 
     auto is_marked = [target](int x) -> bool { return x == target; };
     int M = 0; for (int i = 0; i < N; ++i) if (is_marked(i)) ++M;
