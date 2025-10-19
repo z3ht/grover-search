@@ -13,7 +13,6 @@
 #include "frames.hpp"
 
 struct ShorAlgorithm : public IAlgorithm {
-    // Composite number to factor (small N like 15, 21, 33, 35, 91…)
     int N = 15;
 
     explicit ShorAlgorithm(int N_) : N(N_) {}
@@ -106,7 +105,7 @@ struct ShorAlgorithm : public IAlgorithm {
     std::vector<qframes::Frame> run_and_make_frames(qcommon::QRegister reg) override {
         std::vector<qframes::Frame> frames;
 
-        const int n = reg.n;                  // keep caller’s n so viz matches
+        const int n = reg.n;
         const int D = 1 << n;
         reg.psi.assign(D, qcommon::Complex{0.0, 0.0});
         reg.psi[0] = qcommon::Complex{1.0, 0.0};
@@ -157,7 +156,6 @@ struct ShorAlgorithm : public IAlgorithm {
             });
         }
 
-        // Find period r (demo: classically) and show a mock readout with r peaks
         int r = order_of_a_mod_N(a, N);
         {
             auto psi = std::vector<qcommon::Complex>(D);

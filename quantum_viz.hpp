@@ -91,7 +91,6 @@ namespace quantum_viz {
         line(s, x1,y1, (int)std::round(x1 - rx2*head_len), (int)std::round(y1 - ry2*head_len), head);
     }
 
-/* ---------- Grid of mini-arrows ---------- */
     struct GridArrowsConfig {
         int  r_bits = 0;
         int  cell   = 24;
@@ -176,7 +175,6 @@ namespace quantum_viz {
         return true;
     }
 
-/* ---------- Argand panel ---------- */
     struct ArrowsConfig {
         int    panel_size   = 640;
         int    margin       = 16;
@@ -283,7 +281,6 @@ namespace quantum_viz {
         return true;
     }
 
-/* ---------- Probability bars ---------- */
     struct ProbBarsConfig {
         int    W = 640;
         int    H = 300;
@@ -353,7 +350,6 @@ namespace quantum_viz {
         return true;
     }
 
-/* ---------- Step control ---------- */
     enum class Step { None, Prev, Next, First, Last, Quit };
     inline Step wait_for_step(){
         SDL_Event ev;
@@ -373,12 +369,6 @@ namespace quantum_viz {
             }
             SDL_Delay(12);
         }
-    }
-
-/* ---------- Oracle primitives ---------- */
-    inline void apply_mcz_all_ones(std::vector<Complex>& psi, int n) {
-        int idx = (1 << n) - 1;
-        psi[idx] *= -1.0;
     }
 
     enum class OraclePhase { None, PreX, MCX, UnX, Result };
@@ -474,7 +464,6 @@ namespace quantum_viz {
         return true;
     }
 
-/* ---------- Cleanup ---------- */
     inline void shutdown(){
         sdlm::destroy_window(sdlm::M().grid);
         sdlm::destroy_window(sdlm::M().arrows);
@@ -484,4 +473,4 @@ namespace quantum_viz {
         sdlm::M().inited = false;
     }
 
-} // namespace quantum_viz
+}

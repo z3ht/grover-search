@@ -30,10 +30,10 @@ static int infer_n(const std::vector<qcommon::Complex>& psi) {
 
 int main() {
     const int viz_qubits = 10;   // visualization grid size (2^n bins)
-    const int N_to_factor = 21;  // Shor's composite target (3×7)
+    const int target = 21;
 
     qcommon::QRegister reg(viz_qubits);
-    std::unique_ptr<IAlgorithm> algo = std::make_unique<ShorAlgorithm>(N_to_factor);
+    std::unique_ptr<IAlgorithm> algo = std::make_unique<ShorAlgorithm>(target);
 
     auto frames = algo->run_and_make_frames(std::move(reg));
 
@@ -83,12 +83,10 @@ int main() {
         const auto& f = frames[i];
         const int n_frame = infer_n(f.psi);
 
-        // Grid of arrows (probability + phase hue)
         auto gcfg_copy = gcfg;
         gcfg_copy.marked_index = f.highlight_index;
         quantum_viz::show_grid_arrows(f.psi, n_frame, gcfg_copy, f.title_grid.c_str());
 
-        // Main arrows panel
         auto acfg_copy = acfg;
         acfg_copy.marked_index = f.highlight_index;
         acfg_copy.draw_reflection = f.draw_reflection;
@@ -97,25 +95,21 @@ int main() {
                 f.draw_reflection ? &f.prev_for_reflection : nullptr
         );
 
-        // Probability bars
         auto pcfg_copy = pcfg;
         pcfg_copy.marked_index = f.highlight_index;
         quantum_viz::show_prob_bars(f.psi, n_frame, pcfg_copy, f.title_bars.c_str());
 
-        // Left “circuit” panel reused as caption block
         if (f.show_circuit)
             quantum_viz::show_oracle_step(n_frame, 0, to_viz_phase(f.phase), ocfg,
                                           f.title_circuit.empty() ? "Step" : f.title_circuit.c_str());
         else
             quantum_viz::show_oracle_step(n_frame, 0, quantum_viz::OraclePhase::None, ocfg, " ");
 
-        // Console log
         std::cout << "Frame " << std::setw(2) << (i + 1) << "/" << F
                   << "  —  " << (f.title_grid.empty() ? "(frame)" : f.title_grid)
                   << "\n";
     };
 
-    // Interactive navigation (same key model as your Grover build)
     render(idx);
     for (;;) {
         auto step = quantum_viz::wait_for_step();
