@@ -14,4 +14,4 @@ From this, it’s still possible to write both good and bad code.
 
 Grover’s search is proven optimal, but with less effective interference patterns, slower solutions are also possible.
 
-To me, this fact makes code feel more human
+To me, this reminds me that all software is a human expression
